@@ -11,7 +11,7 @@ export default function Home() {
                 <div className='relative flex items-center justify-items-start overflow-hidden rounded-lg bg-gray-300 p-10 sm:mr-10 md:w-1/2 lg:w-2/3'>
                     <Popup />
                 </div>
-                <div className='mt-8 flex w-full flex-col overflow-auto bg-white md:ml-auto md:mt-0 md:w-1/2 md:py-8 lg:w-1/3'>
+                <div className='mt-8 flex w-full flex-col overflow-auto bg-white pr-3 md:ml-auto md:mt-0  md:w-1/2 lg:w-1/3'>
                     <SideSettings />
                 </div>
             </main>
