@@ -1,5 +1,7 @@
 import React from 'react';
-import { useFieldSettings } from '../context/fieldSettingsContext'; // Yolu uygun şekilde ayarlayın
+import { useFieldSettings } from '../context/fieldSettingsContext';
+import InputField from './InputField';
+import CheckboxField from './CheckboxField';
 
 const Popup = () => {
     const { fields } = useFieldSettings();
@@ -11,32 +13,34 @@ const Popup = () => {
                     (fieldName) => {
                         const { label, placeholder, errorMessage } =
                             fields[fieldName as keyof typeof fields];
-                        return (
-                            <div className='mb-4' key={fieldName}>
-                                <label
-                                    className='mb-2 block text-sm font-bold text-gray-700'
-                                    htmlFor={fieldName.toLowerCase()}
-                                >
-                                    {label}
-                                </label>
-                                <input
-                                    required
-                                    className='focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none'
+                        const pattern =
+                            fieldName === 'Email'
+                                ? '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
+                                : fieldName === 'PhoneNumber'
+                                ? '\\d+'
+                                : undefined;
+
+                        if (fieldName === 'Consent') {
+                            return (
+                                <CheckboxField
+                                    key={fieldName}
+                                    label={label}
                                     id={fieldName.toLowerCase()}
-                                    type='text'
+                                    errorMessage={errorMessage}
                                     placeholder={placeholder}
-                                    pattern={
-                                        fieldName === 'Email'
-                                            ? '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
-                                            : fieldName === 'PhoneNumber'
-                                            ? '\\d+'
-                                            : undefined
-                                    }
                                 />
-                                <span className='text-xs text-red-500'>
-                                    {errorMessage}
-                                </span>
-                            </div>
+                            );
+                        }
+
+                        return (
+                            <InputField
+                                key={fieldName}
+                                label={label}
+                                id={fieldName.toLowerCase()}
+                                placeholder={placeholder}
+                                errorMessage={errorMessage}
+                                pattern={pattern}
+                            />
                         );
                     }
                 )}
