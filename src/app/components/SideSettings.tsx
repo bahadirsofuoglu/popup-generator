@@ -2,20 +2,29 @@ import React, { useState } from 'react';
 import InputField from './InputField';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
-import { useFieldSettings } from '../context/fieldSettingsContext'; // Yolu uygun şekilde ayarlayın
+import { useFieldSettings } from '../context/fieldSettingsContext';
 
-const Fields = ['Name', 'Email', 'PhoneNumber', 'Consent'];
-const fieldSettings = ['label', 'errorMessage', 'placeholder'];
+const Fields = [
+    { label: 'Name', key: 'name' },
+    { label: 'Email', key: 'email' },
+    { label: 'Phone Number', key: 'phoneNumber' },
+    { label: 'Consent', key: 'consent' },
+];
+const fieldSettings = [
+    { label: 'Label', key: 'label' },
+    { label: 'Placeholder', key: 'placeholder' },
+    { label: 'Error Message', key: 'errorMessage' },
+];
 
-const SettingItem = ({ item }: { item: string }) => {
+const SettingItem = ({ item }: { item: { label: string; key: string } }) => {
     const [isOpen, setIsOpen] = useState(false);
     const { fields, updateFieldSettings } = useFieldSettings();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
-        updateFieldSettings(item as keyof typeof fields, {
-            ...fields[item as keyof typeof fields],
+        updateFieldSettings(item.key as keyof typeof fields, {
+            ...fields[item.key as keyof typeof fields],
             [name]: value,
         });
     };
@@ -26,7 +35,7 @@ const SettingItem = ({ item }: { item: string }) => {
                 className={` border-natural-300 mt-2 rounded border-2 bg-neutral-100/75 px-2 pb-2  `}
             >
                 <div className='align-center mt-2 flex justify-between '>
-                    <h1 className='text-sm  text-black'>{item}</h1>
+                    <h1 className='text-sm  text-black'>{item.label}</h1>
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className='rounded hover:bg-neutral-300'
@@ -37,12 +46,12 @@ const SettingItem = ({ item }: { item: string }) => {
                 {isOpen ? (
                     <div className='hover:unset duration-600 mt-2 transition-all ease-in-out'>
                         {fieldSettings.map((fieldType) => (
-                            <div key={fieldType} className='relative mb-4'>
+                            <div key={fieldType.key} className='relative mb-4'>
                                 <InputField
-                                    label={fieldType}
+                                    label={fieldType.label}
                                     id={`${item}-${fieldType}`}
-                                    name={fieldType}
-                                    value={fields[item][fieldType]}
+                                    name={fieldType.key}
+                                    value={fields[item.key][fieldType.key]}
                                     inputClassName='h-7'
                                     onChange={handleInputChange}
                                 />

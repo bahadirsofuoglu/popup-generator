@@ -6,44 +6,37 @@ import CheckboxField from './CheckboxField';
 const Popup = () => {
     const { fields } = useFieldSettings();
 
+    const fieldTypes = ['name', 'email', 'phoneNumber', 'consent'];
+
     return (
-        <div className='w-full rounded-lg bg-white p-8'>
+        <div className='relative m-auto w-[50vw] rounded-lg bg-white p-8'>
             <form>
-                {['Name', 'Email', 'PhoneNumber', 'Consent'].map(
-                    (fieldName) => {
-                        const { label, placeholder, errorMessage } =
-                            fields[fieldName as keyof typeof fields];
-                        const pattern =
-                            fieldName === 'Email'
-                                ? '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
-                                : fieldName === 'PhoneNumber'
-                                ? '\\d+'
-                                : undefined;
+                {fieldTypes.map((fieldName) => {
+                    const { label, placeholder, errorMessage } =
+                        fields[fieldName as keyof typeof fields];
 
-                        if (fieldName === 'Consent') {
-                            return (
-                                <CheckboxField
-                                    key={fieldName}
-                                    label={label}
-                                    id={fieldName.toLowerCase()}
-                                    errorMessage={errorMessage}
-                                    placeholder={placeholder}
-                                />
-                            );
-                        }
-
+                    if (fieldName === 'consent') {
                         return (
-                            <InputField
+                            <CheckboxField
                                 key={fieldName}
                                 label={label}
                                 id={fieldName.toLowerCase()}
                                 placeholder={placeholder}
-                                errorMessage={errorMessage}
-                                pattern={pattern}
+                                containerClassName='mb-4'
                             />
                         );
                     }
-                )}
+
+                    return (
+                        <InputField
+                            key={fieldName}
+                            label={label}
+                            id={fieldName.toLowerCase()}
+                            placeholder={placeholder}
+                            containerClassName='mb-4'
+                        />
+                    );
+                })}
                 <div className='flex items-center justify-between'>
                     <button
                         className='focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none'

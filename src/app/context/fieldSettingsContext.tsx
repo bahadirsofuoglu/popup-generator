@@ -11,10 +11,10 @@ interface FieldSettings {
 }
 
 interface Fields {
-    Name: FieldSettings;
-    Email: FieldSettings;
-    PhoneNumber: FieldSettings;
-    Consent: FieldSettings;
+    name: FieldSettings;
+    email: FieldSettings;
+    phoneNumber: FieldSettings;
+    consent: FieldSettings;
 }
 
 interface FieldSettingsContextProps {
@@ -25,19 +25,29 @@ interface FieldSettingsContextProps {
     ) => void;
 }
 
-const createInitialFields = (fieldNames: string[]) => {
+interface FieldName {
+    label: string;
+    key: string;
+}
+
+const createInitialFields = (fieldNames: FieldName[]) => {
     const initialFields: any = {};
     fieldNames.forEach((fieldName) => {
-        initialFields[fieldName] = {
-            label: fieldName,
-            errorMessage: `${fieldName} is required`,
-            placeholder: `Type ${fieldName}`,
+        initialFields[fieldName.key] = {
+            label: fieldName.label,
+            errorMessage: `${fieldName.label} is required`,
+            placeholder: `Type ${fieldName.label}`,
         };
     });
     return initialFields as Fields;
 };
 
-const fieldNames = ['Name', 'Email', 'PhoneNumber', 'Consent'];
+const fieldNames = [
+    { label: 'Name', key: 'name' },
+    { label: 'Email', key: 'email' },
+    { label: 'Phone number', key: 'phoneNumber' },
+    { label: 'Consent', key: 'consent' },
+];
 const initialFields = createInitialFields(fieldNames);
 
 const FieldSettingsContext = createContext<FieldSettingsContextProps>({

@@ -39,10 +39,13 @@ export default async function handler(
 }
 
 function generateJSCodes(settings: any) {
+    console.log(settings);
     const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
+
         const settings = ${JSON.stringify(settings)};
         const overlay = document.createElement('div');
+       
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
         overlay.style.left = '0';
@@ -63,49 +66,89 @@ function generateJSCodes(settings: any) {
         closeButton.style.zIndex = '1001';
     
         const popupDiv = document.createElement('div');
-        popupDiv.style.width = '100%';
-        popupDiv.style.maxWidth = '400px';
+        popupDiv.style.width = '50vw';
         popupDiv.style.borderRadius = '0.5rem';
-        popupDiv.style.backgroundColor = 'white';
+        popupDiv.style.backgroundColor = 'rgb(255 255 255)';
         popupDiv.style.padding = '2rem';
-        popupDiv.style.position = 'relative';
+        popupDiv.style.position= 'relative';
     
         closeButton.addEventListener('click', () => {
           document.body.removeChild(overlay);
         });
 
+       
+
       const popupContent = \`
-        <form>
+        <form id="pg-form" style="font-family:Inter">
           <div style="margin-bottom: 1rem;">
-            <label style="margin-bottom: 0.5rem; display: block; font-size: 0.875rem; font-weight: bold; color: #4A5568;" for="name">\${settings.Name.label}</label>
-            <input required style="width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: #4A5568; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);" id="name" type="text" placeholder="\${settings.Name.placeholder}">
-            <span style="font-size: 0.75rem; color: #FC8181;">\${settings.Name.errorMessage}</span>
+            <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="name">\${settings.name.label}</label>
+            <input id="pg-name-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="name" type="text" placeholder="\${settings.name.placeholder}">
+            <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="name-error-message">\${settings.name.errorMessage}</span>
           </div>
           <div style="margin-bottom: 1rem;">
-            <label style="margin-bottom: 0.5rem; display: block; font-size: 0.875rem; font-weight: bold; color: #4A5568;" for="email">\${settings.Email.label}</label>
-            <input required style="width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: #4A5568; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);" id="email" type="email" placeholder="\${settings.Email.placeholder}">
-            <span style="font-size: 0.75rem; color: #FC8181;">\${settings.Email.errorMessage}</span>
+            <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="email">\${settings.email.label}</label>
+            <input id="pg-email-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="email" type="email" placeholder="\${settings.email.placeholder}">
+            <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="email-error-message">\${settings.email.errorMessage}</span>
           </div>
           <div style="margin-bottom: 1rem;">
-            <label style="margin-bottom: 0.5rem; display: block; font-size: 0.875rem; font-weight: bold; color: #4A5568;" for="phone">\${settings.PhoneNumber.label}</label>
-            <input required style="width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: #4A5568; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);" id="phone" type="text" placeholder="\${settings.PhoneNumber.placeholder}">
-            <span style="font-size: 0.75rem; color: #FC8181;">\${settings.PhoneNumber.errorMessage}</span>
+            <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="phone">\${settings.phoneNumber.label}</label>
+            <input id="pg-phoneNumber-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="phone" type="text" placeholder="\${settings.phoneNumber.placeholder}">
+            <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="phoneNumber-error-message">\${settings.phoneNumber.errorMessage}</span>
           </div>
           <div style="margin-bottom: 1rem;">
-            <label style="margin-bottom: 0.5rem; display: block; font-size: 0.875rem; font-weight: bold; color: #4A5568;" for="consent">\${settings.Consent.label}</label>
-            <input required style="width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0.5rem 0.75rem; font-size: 0.875rem; color: #4A5568; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);" id="consent" type="text" placeholder="\${settings.Consent.placeholder}">
-            <span style="font-size: 0.75rem; color: #FC8181;">\${settings.Consent.errorMessage}</span>
+            <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="consent">\${settings.consent.label}</label>
+            <input id="pg-consent-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="consent" type="text" placeholder="\${settings.consent.placeholder}">
+            <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="consent-error-message">\${settings.consent.errorMessage}</span>
           </div>
           <div style="display: flex; align-items: center; justify-content: space-between;">
-            <button style="border-radius: 0.375rem; background-color: #4299E1; padding: 0.5rem 1rem; font-weight: bold; color: white; cursor: pointer;" type="submit">Submit</button>
+            <button style="border-color: rgb(59 130 246); border-radius: 0.375rem; background: rgb(59 130 246); padding: 0.5rem 1rem; font-weight: 700; color: rgb(255 255 255); cursor: pointer;font-family: inherit; font-size: 100%; margin:0;    border-width: 0;
+            border-style: solid;" type="submit">Submit</button>
           </div>
         </form>
       \`;
   
+   
+
       popupDiv.innerHTML = popupContent;
       popupDiv.appendChild(closeButton);
       overlay.appendChild(popupDiv);
       document.body.appendChild(overlay);
+
+      const form = document.getElementById("pg-form");
+      form.addEventListener("submit", function(event) {
+          event.preventDefault(); 
+        
+          let isValid = true;
+          const formData = new FormData(form);
+        
+          ["name", "email", "phoneNumber", "consent"].forEach((fieldName) => {
+            const value = document.getElementById(\`pg-\${fieldName}-input\`).value;
+            const errorMsgElement = document.querySelector(\`#\${fieldName}-error-message\`);
+            if (!value) {
+              isValid = false;
+              errorMsgElement.style.display = "inline";  
+              errorMsgElement.textContent = settings[fieldName].errorMessage;
+            } else {
+              errorMsgElement.style.display = "none";  
+              errorMsgElement.textContent = "";
+            }
+          });
+        
+          if (isValid) {
+            fetch("/api/submitForm", {
+              method: "POST",
+              body: formData,
+            }).then((response) => {
+              if (response.ok) {
+                console.log("Form submitted");
+              } else {
+                console.log("Failed to submit form");
+              }
+            }).catch((error) => {
+              console.log("There was an error", error);
+            });
+          }
+        });
     });
     `;
     return jsCode;
