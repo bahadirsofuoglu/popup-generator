@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import InputField from './InputField';
 import { useFieldSettings } from '../context/fieldSettingsContext'; // Yolu uygun şekilde ayarlayın
 
-const fields = ['Name', 'Email', 'PhoneNumber', 'Consent'];
+const Fields = ['Name', 'Email', 'PhoneNumber', 'Consent'];
 const fieldSettings = ['label', 'errorMessage', 'placeholder'];
 
 const SettingItem = ({ item }: { item: string }) => {
@@ -44,19 +44,40 @@ const SettingItem = ({ item }: { item: string }) => {
 };
 
 const SideSettings = () => {
+    const { fields, updateFieldSettings } = useFieldSettings();
+    const handleSubmit = async (e: Event) => {
+        e.preventDefault();
+        console.log(fields);
+        try {
+            const response = await fetch('/api/generateJs', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fields }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+            } else {
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <section className='flex h-full flex-col justify-between'>
             <h2 className='title-font mb-1 text-lg font-medium text-gray-900'>
                 Popup Settings
             </h2>
             <div className='flex-1'>
-                {fields.map((item, index) => (
+                {Fields.map((item, index) => (
                     <SettingItem key={index} item={item} />
                 ))}
             </div>
             <button
-                onClick={() => {
-                    alert('test');
+                onClick={(e) => {
+                    handleSubmit(e);
                 }}
                 className='self-end justify-self-end rounded border-0 bg-indigo-500 px-6 py-2 text-lg text-white hover:bg-indigo-600 focus:outline-none'
             >
