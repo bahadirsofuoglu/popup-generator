@@ -16,11 +16,9 @@ export default async function handler(
     if (req.method !== 'POST') {
         return res.status(405).end();
     }
-    console.log('req.body', req.body);
 
     const settings = req.body.fields;
 
-    console.log('settings', settings);
     const jsCode = generateJSCodes(settings);
 
     const params = {
