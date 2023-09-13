@@ -2,13 +2,8 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
-const inter = Inter({ subsets: ['latin'] });
 
-const client = new ApolloClient({
-    uri: 'http://localhost:3000/api/graphql', // Sunucunuzun URL'si
-    cache: new InMemoryCache(),
-});
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
     title: 'Create Next App',
@@ -22,10 +17,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
-            <body className={inter.className}>
-                {' '}
-                <ApolloProvider client={client}>{children}</ApolloProvider>
-            </body>
+            <body className={inter.className}>{children}</body>
         </html>
     );
 }

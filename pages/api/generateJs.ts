@@ -116,6 +116,11 @@ function generateJSCodes(settings: any) {
       form.addEventListener("submit", function(event) {
           event.preventDefault(); 
         
+          const nameValue = document.getElementById("pg-name-input").value;
+          const emailValue = document.getElementById("pg-email-input").value;
+          const phoneNumberValue = document.getElementById("pg-phoneNumber-input").value;
+          const consentValue = document.getElementById("pg-consent-input").value;
+
           let isValid = true;
           const formData = new FormData(form);
         
@@ -131,11 +136,21 @@ function generateJSCodes(settings: any) {
               errorMsgElement.textContent = "";
             }
           });
-        
-          if (isValid) {
+     
+        if (isValid) {
+            const payload = JSON.stringify({
+              name: nameValue,
+              email: emailValue,
+              phoneNumber: phoneNumberValue,
+              consent: consentValue === 'true' 
+            });
+
             fetch("/api/submitForm", {
               method: "POST",
-              body: formData,
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: payload,
             }).then((response) => {
               if (response.ok) {
                 console.log("Form submitted");
