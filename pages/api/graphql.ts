@@ -22,6 +22,6 @@ export default async function handler(
     }
 
     await connectDB();
-    await apolloServer.start(); // server.start() fonksiyonunu çağır
+    await apolloServer.start();
     return apolloServer.createHandler({ path: '/api/graphql' })(req, res);
 }

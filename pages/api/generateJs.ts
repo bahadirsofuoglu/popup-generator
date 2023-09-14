@@ -37,7 +37,6 @@ export default async function handler(
 }
 
 function generateJSCodes(settings: any) {
-    console.log(settings);
     const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
 
@@ -120,12 +119,10 @@ function generateJSCodes(settings: any) {
       const form = document.getElementById("pg-form");
       const inputElements = form.querySelectorAll('input');
 
-    // Her bir input elementi için focus ve blur olay dinleyicilerini ekleyin
+    
     inputElements.forEach((inputElement) => {
         inputElement.addEventListener('focus', () => {
           inputElement.style.borderColor = 'rgb(99, 102, 241)'; 
-
-          // focus:ring-2 ve focus:ring-indigo-200
           inputElement.style.boxShadow = '0 0 0 calc(2px) rgb(199 210 254), 0 0 #0000';  
         });
 
