@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
-import Popup from '@/app/components/Popup';
-import SideSettings from '@/app/components/SideSettings';
+import Popup from '@/components/Popup';
+import SideSettings from '@/components/SideSettings';
 
 export default function Home() {
     return (

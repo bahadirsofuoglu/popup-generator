@@ -1,5 +1,5 @@
 'use client';
-import CodeBlock from '@/app/components/CodeBlock';
+import CodeBlock from '@/components/CodeBlock';
 import Link from 'next/link';
 
 export default function Page() {

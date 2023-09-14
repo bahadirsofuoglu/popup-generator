@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldSettings } from '../context/fieldSettingsContext';
 import InputField from './InputField';
 import CheckboxField from './CheckboxField';
-import CloseIcon from '@/app/components/icons/CloseIcon';
+import CloseIcon from '@/components/icons/CloseIcon';
 const Popup = () => {
     const { fields } = useFieldSettings();
 

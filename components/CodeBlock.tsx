@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRef } from 'react';
-import { useToast } from '@/app/context/toastContext';
+import { useToast } from '@/context/toastContext';
 
 const CodeBlock: React.FC = () => {
     const codeBlockRef = useRef<HTMLElement>(null);
