@@ -2,7 +2,7 @@ import React from 'react';
 import { useFieldSettings } from '../context/fieldSettingsContext';
 import InputField from './InputField';
 import CheckboxField from './CheckboxField';
-
+import CloseIcon from '@/app/components/icons/CloseIcon';
 const Popup = () => {
     const { fields } = useFieldSettings();
 
@@ -49,6 +49,9 @@ const Popup = () => {
                     </button>
                 </div>
             </form>
+            <div className='absolute right-2.5 top-2.5 z-10 cursor-pointer text-black'>
+                <CloseIcon />
+            </div>
         </div>
     );
 };

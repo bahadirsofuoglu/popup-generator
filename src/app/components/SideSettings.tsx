@@ -108,7 +108,7 @@ const SideSettings = () => {
             </div>
             <button
                 onClick={(e) => handleSubmit(e)}
-                className='focus:shadow-outline self-end justify-self-end rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none'
+                className='focus:shadow-outline mt-1 self-end justify-self-end rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none'
             >
                 Generate Popup
             </button>

@@ -56,7 +56,8 @@ function generateJSCodes(settings: any) {
         overlay.style.zIndex = '1000';
     
         const closeButton = document.createElement('div');
-        closeButton.innerText = 'X';
+        const svgContent = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="height:1rem;width:1rem"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>';
+        closeButton.innerHTML = svgContent;
         closeButton.style.position = 'absolute';
         closeButton.style.top = '10px';
         closeButton.style.right = '10px';
@@ -70,6 +71,8 @@ function generateJSCodes(settings: any) {
         popupDiv.style.padding = '2rem';
         popupDiv.style.position= 'relative';
         popupDiv.style.fontFamily = 'sans-serif';
+        popupDiv.style.color = 'rgb(75, 85, 99)';
+        popupDiv.style.lineHeight = '1.25rem';
     
         closeButton.addEventListener('click', () => {
           document.body.removeChild(overlay);
@@ -77,7 +80,7 @@ function generateJSCodes(settings: any) {
 
       const popupContent = \`
         <form id="pg-form">
-          <div style="margin-bottom: 1rem;">
+          <div style="margin-bottom: 1rem; ">
             <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="name">\${settings.name.label}</label>
             <input id="pg-name-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="name" type="text" placeholder="\${settings.name.placeholder}">
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="name-error-message">\${settings.name.errorMessage}</span>
@@ -95,7 +98,7 @@ function generateJSCodes(settings: any) {
           <div style="display: flex; flex-direction: column; align-items: start; margin-bottom: 1rem;">
             <label for="consent" style="font-size: 0.875rem; font-weight: bold; color: black;">Consent</label>
           <div style="display: flex; align-items: center;">
-              <input required="" id="consent" style="margin-right: 0.5rem;" type="checkbox">
+              <input required id="pg-consent-input" style="margin-right: 0.5rem;" type="checkbox">
               <span style="font-size: 0.875rem;">Type Consent</span>
           </div>
       </div>
@@ -134,8 +137,11 @@ function generateJSCodes(settings: any) {
               errorMsgElement.style.display = "inline";  
               errorMsgElement.textContent = settings[fieldName].errorMessage;
             } else {
-              errorMsgElement.style.display = "none";  
-              errorMsgElement.textContent = "";
+              if(errorMsgElement) {
+                errorMsgElement.style.display = "none";  
+                errorMsgElement.textContent = "";
+              }
+              
             }
           });
      
@@ -144,7 +150,7 @@ function generateJSCodes(settings: any) {
               name: nameValue,
               email: emailValue,
               phoneNumber: phoneNumberValue,
-              consent: consentValue === 'true' 
+              consent: consentValue === 'on'
             });
 
             fetch("/api/submitForm", {
@@ -156,6 +162,7 @@ function generateJSCodes(settings: any) {
             }).then((response) => {
               if (response.ok) {
                 console.log("Form submitted");
+                document.body.removeChild(overlay);
               } else {
                 console.log("Failed to submit form");
               }
