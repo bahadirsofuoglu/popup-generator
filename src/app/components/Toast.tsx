@@ -6,7 +6,7 @@ const Toast: React.FC = () => {
 
     if (!isOpen) return null;
 
-    const backgroundColor = type === 'error' ? 'bg-red-500' : 'bg-blue-300';
+    const backgroundColor = type === 'error' ? 'bg-red-500' : 'bg-green-300';
 
     return (
         <div

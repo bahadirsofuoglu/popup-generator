@@ -2,6 +2,9 @@
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { FieldSettingsProvider } from './context/fieldSettingsContext'; // İlgili path'e göre güncelleyin
+import { ToastProvider } from './context/toastContext';
+import Toast from '@/app/components/Toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +20,15 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
-            <body className={inter.className}>{children}</body>
+            <body className={inter.className}>
+                {' '}
+                <ToastProvider>
+                    <FieldSettingsProvider>
+                        {children}
+                        <Toast />
+                    </FieldSettingsProvider>
+                </ToastProvider>
+            </body>
         </html>
     );
 }

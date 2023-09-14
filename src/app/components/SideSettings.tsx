@@ -4,6 +4,7 @@ import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
 import { useFieldSettings } from '../context/fieldSettingsContext';
 import { useToast } from '../context/toastContext';
+import { useRouter } from 'next/navigation';
 
 const Fields = [
     { label: 'Name', key: 'name' },
@@ -68,6 +69,7 @@ const SettingItem = ({ item }: { item: { label: string; key: string } }) => {
 const SideSettings = () => {
     const { fields, updateFieldSettings } = useFieldSettings();
     const { openToast } = useToast();
+    const router = useRouter();
 
     const handleSubmit = async (
         e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -86,6 +88,7 @@ const SideSettings = () => {
             if (response.ok) {
                 await response.json();
                 openToast('Popup generated successfully', 'success');
+                router.push('/generate-popup');
             } else {
                 openToast('Something went wrong');
             }
