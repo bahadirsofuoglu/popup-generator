@@ -69,15 +69,14 @@ function generateJSCodes(settings: any) {
         popupDiv.style.backgroundColor = 'rgb(255 255 255)';
         popupDiv.style.padding = '2rem';
         popupDiv.style.position= 'relative';
+        popupDiv.style.fontFamily = 'sans-serif';
     
         closeButton.addEventListener('click', () => {
           document.body.removeChild(overlay);
         });
 
-       
-
       const popupContent = \`
-        <form id="pg-form" style="font-family:Inter">
+        <form id="pg-form">
           <div style="margin-bottom: 1rem;">
             <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="name">\${settings.name.label}</label>
             <input id="pg-name-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="name" type="text" placeholder="\${settings.name.placeholder}">
@@ -93,11 +92,14 @@ function generateJSCodes(settings: any) {
             <input id="pg-phoneNumber-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="phone" type="text" placeholder="\${settings.phoneNumber.placeholder}">
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="phoneNumber-error-message">\${settings.phoneNumber.errorMessage}</span>
           </div>
-          <div style="margin-bottom: 1rem;">
-            <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="consent">\${settings.consent.label}</label>
-            <input id="pg-consent-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="consent" type="text" placeholder="\${settings.consent.placeholder}">
-            <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="consent-error-message">\${settings.consent.errorMessage}</span>
+          <div style="display: flex; flex-direction: column; align-items: start; margin-bottom: 1rem;">
+            <label for="consent" style="font-size: 0.875rem; font-weight: bold; color: black;">Consent</label>
+          <div style="display: flex; align-items: center;">
+              <input required="" id="consent" style="margin-right: 0.5rem;" type="checkbox">
+              <span style="font-size: 0.875rem;">Type Consent</span>
           </div>
+      </div>
+      
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <button style="border-color: rgb(59 130 246); border-radius: 0.375rem; background: rgb(59 130 246); padding: 0.5rem 1rem; font-weight: 700; color: rgb(255 255 255); cursor: pointer;font-family: inherit; font-size: 100%; margin:0;    border-width: 0;
             border-style: solid;" type="submit">Submit</button>

@@ -9,7 +9,10 @@ const Popup = () => {
     const fieldTypes = ['name', 'email', 'phoneNumber', 'consent'];
 
     return (
-        <div className='relative m-auto w-[50vw] rounded-lg bg-white p-8'>
+        <div
+            className='relative m-auto w-[50vw] rounded-lg bg-white p-8'
+            style={{ fontFamily: 'sans-serif' }}
+        >
             <form>
                 {fieldTypes.map((fieldName) => {
                     const { label, placeholder, errorMessage } =
