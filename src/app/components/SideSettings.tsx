@@ -3,6 +3,7 @@ import InputField from './InputField';
 import PlusIcon from './icons/PlusIcon';
 import MinusIcon from './icons/MinusIcon';
 import { useFieldSettings } from '../context/fieldSettingsContext';
+import { useToast } from '../context/toastContext';
 
 const Fields = [
     { label: 'Name', key: 'name' },
@@ -66,9 +67,13 @@ const SettingItem = ({ item }: { item: { label: string; key: string } }) => {
 
 const SideSettings = () => {
     const { fields, updateFieldSettings } = useFieldSettings();
-    const handleSubmit = async (e: Event) => {
+    const { openToast } = useToast();
+
+    const handleSubmit = async (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    ) => {
         e.preventDefault();
-        console.log(fields);
+
         try {
             const response = await fetch('/api/generateJs', {
                 method: 'POST',
@@ -79,11 +84,13 @@ const SideSettings = () => {
             });
 
             if (response.ok) {
-                const data = await response.json();
+                await response.json();
+                openToast('Popup generated successfully', 'success');
             } else {
+                openToast('Something went wrong');
             }
         } catch (error) {
-            console.log(error);
+            openToast('Something went wrong');
         }
     };
     return (
