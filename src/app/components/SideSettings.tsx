@@ -67,7 +67,7 @@ const SettingItem = ({ item }: { item: { label: string; key: string } }) => {
 };
 
 const SideSettings = () => {
-    const { fields, updateFieldSettings } = useFieldSettings();
+    const { fields } = useFieldSettings();
     const { openToast } = useToast();
     const router = useRouter();
 

@@ -32,7 +32,7 @@ export default async function handler(
         const uploadResult = await s3.upload(params).promise();
         res.status(200).json({ success: true, url: uploadResult.Location });
     } catch (error) {
-        res.status(500).json({ success: false, error: error.message });
+        res.status(500).json({ success: false, error });
     }
 }
 
@@ -82,17 +82,17 @@ function generateJSCodes(settings: any) {
         <form id="pg-form">
           <div style="margin-bottom: 1rem; ">
             <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="name">\${settings.name.label}</label>
-            <input id="pg-name-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="name" type="text" placeholder="\${settings.name.placeholder}">
+            <input id="pg-name-input" style="outline: 2px solid transparent;outline-offset: 2px;line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="name" type="text" placeholder="\${settings.name.placeholder}">
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="name-error-message">\${settings.name.errorMessage}</span>
           </div>
           <div style="margin-bottom: 1rem;">
             <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="email">\${settings.email.label}</label>
-            <input id="pg-email-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="email" type="email" placeholder="\${settings.email.placeholder}">
+            <input id="pg-email-input" style="outline: 2px solid transparent;outline-offset: 2px;line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="email" type="email" placeholder="\${settings.email.placeholder}">
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="email-error-message">\${settings.email.errorMessage}</span>
           </div>
           <div style="margin-bottom: 1rem;">
             <label style="line-height: 1.25rem;display: block; font-size: 0.875rem; font-weight: bold; color: rgb(0 0 0);" for="phone">\${settings.phoneNumber.label}</label>
-            <input id="pg-phoneNumber-input" style="line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="phone" type="text" placeholder="\${settings.phoneNumber.placeholder}">
+            <input id="pg-phoneNumber-input" style="outline: 2px solid transparent;outline-offset: 2px;line-height: 2rem;box-sizing: border-box; width: 100%; border-radius: 0.375rem; border: 1px solid; padding: 0 0.75rem; font-size: 0.875rem; color: rgb(0 0 0); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);border-color: rgb(209 213 219);" id="phone" type="text" placeholder="\${settings.phoneNumber.placeholder}">
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="phoneNumber-error-message">\${settings.phoneNumber.errorMessage}</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: start; margin-bottom: 1rem;">
@@ -109,8 +109,8 @@ function generateJSCodes(settings: any) {
           </div>
         </form>
       \`;
-  
-   
+
+    
 
       popupDiv.innerHTML = popupContent;
       popupDiv.appendChild(closeButton);
@@ -118,6 +118,23 @@ function generateJSCodes(settings: any) {
       document.body.appendChild(overlay);
 
       const form = document.getElementById("pg-form");
+      const inputElements = form.querySelectorAll('input');
+
+    // Her bir input elementi için focus ve blur olay dinleyicilerini ekleyin
+    inputElements.forEach((inputElement) => {
+        inputElement.addEventListener('focus', () => {
+          inputElement.style.borderColor = 'rgb(99, 102, 241)'; 
+
+          // focus:ring-2 ve focus:ring-indigo-200
+          inputElement.style.boxShadow = '0 0 0 calc(2px) rgb(199 210 254), 0 0 #0000';  
+        });
+
+        inputElement.addEventListener('blur', () => {
+            inputElement.style.borderColor = 'rgb(209 213 219)';
+            inputElement.style.boxShadow = '';
+        });
+    });
+    
       form.addEventListener("submit", function(event) {
           event.preventDefault(); 
         
@@ -144,7 +161,7 @@ function generateJSCodes(settings: any) {
               
             }
           });
-     
+        
         if (isValid) {
             const payload = JSON.stringify({
               name: nameValue,

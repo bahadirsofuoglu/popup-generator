@@ -13,7 +13,7 @@ export default async function submitForm(
     await connectDB();
 
     const { name, phoneNumber, consent, email } = req.body;
-    console.log(req.body);
+
     try {
         const post = await resolvers.Mutation.createPost(null, {
             name,
@@ -30,6 +30,6 @@ export default async function submitForm(
 
         return res.status(200).json({ success: true, data: post });
     } catch (error) {
-        return res.status(500).json({ success: false, error: error.message });
+        return res.status(500).json({ success: false, error: error });
     }
 }
