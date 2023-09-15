@@ -20,6 +20,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang='en'>
+            <head>
+                <title>Popup Generator</title>
+                <meta name='description' content='Description' />
+            </head>
             <body className={inter.className}>
                 {' '}
                 <ToastProvider>
