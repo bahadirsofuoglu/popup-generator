@@ -41,7 +41,7 @@ export default async function handler(
 }
 
 function generateJSCodes(settings: FieldSettings, baseUrl: string) {
-    const jsCode = `
+        const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
 
         const settings = ${JSON.stringify(settings)};
@@ -98,11 +98,12 @@ function generateJSCodes(settings: FieldSettings, baseUrl: string) {
             <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="phoneNumber-error-message">\${settings.phoneNumber.errorMessage}</span>
           </div>
           <div style="display: flex; flex-direction: column; align-items: start; margin-bottom: 1rem;">
-            <label for="consent" style="font-size: 0.875rem; font-weight: bold; color: black;">Consent</label>
+            <label for="consent" style="font-size: 0.875rem; font-weight: bold; color: black;">\${settings.consent.label}</label>
           <div style="display: flex; align-items: center;">
-              <input required id="pg-consent-input" style="margin-right: 0.5rem;" type="checkbox">
-              <span style="font-size: 0.875rem;">Type Consent</span>
+              <input id="pg-consent-input" style="margin-right: 0.5rem;" type="checkbox">
+              <span style="font-size: 0.875rem;">\${settings.consent.placeholder}</span>
           </div>
+          <span style="display: none; font-size: 0.75rem; color: #FC8181;" id="consent-error-message">\${settings.consent.errorMessage}</span>
       </div>
       
           <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -111,8 +112,6 @@ function generateJSCodes(settings: FieldSettings, baseUrl: string) {
           </div>
         </form>
       \`;
-
-    
 
       popupDiv.innerHTML = popupContent;
       popupDiv.appendChild(closeButton);
@@ -148,8 +147,10 @@ function generateJSCodes(settings: FieldSettings, baseUrl: string) {
         
           ["name", "email", "phoneNumber", "consent"].forEach((fieldName) => {
             const value = document.getElementById(\`pg-\${fieldName}-input\`).value;
+            const checkboxValue = document.getElementById(\`pg-\${fieldName}-input\`).checked;
             const errorMsgElement = document.querySelector(\`#\${fieldName}-error-message\`);
-            if (!value) {
+            
+            if (!value || (fieldName === 'consent' && !checkboxValue)) {
               isValid = false;
               errorMsgElement.style.display = "inline";  
               errorMsgElement.textContent = settings[fieldName].errorMessage;
