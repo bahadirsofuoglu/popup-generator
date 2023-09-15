@@ -76,5 +76,5 @@ export const FieldSettingsProvider = ({ children }: Props) => {
 };
 
 export const useFieldSettings = () => {
-    return useContext(FieldSettingsContext);
+    return useContext(FieldSettingsContext) as any;
 };
