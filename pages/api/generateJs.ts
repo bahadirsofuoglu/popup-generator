@@ -21,7 +21,7 @@ export default async function handler(
 
     const baseUrl =
         process.env.NODE_ENV === 'production'
-            ? 'https://your-production-domain.com'
+            ? 'https://popup-generator-tau.vercel.app'
             : 'http://localhost:3000';
     const jsCode = generateJSCodes(settings, baseUrl);
 
