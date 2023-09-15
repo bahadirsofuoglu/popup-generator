@@ -7,8 +7,13 @@ export default async function submitForm(
     res: NextApiResponse
 ) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    if (req.method === 'OPTIONS') {
+        res.status(200).send('OK');
+        return;
+    }
 
     if (req.method !== 'POST') {
         return res.status(405).end();
