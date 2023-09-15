@@ -7,11 +7,10 @@ if (!cached) {
     cached = global.mongoose = { conn: null, promise: null };
 }
 
-const { DB_USERNAME, DB_PASSWORD } = process.env || {};
-const MONGODB_URI = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.2re0bfh.mongodb.net/?retryWrites=true&w=majority`;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const connectDB = async () => {
-    if (!DB_USERNAME || !DB_PASSWORD) {
+    if (!process.env.MONGODB_URI) {
         throw new Error('Invalid DB Credentials(Username or Password)');
     }
 
