@@ -5,6 +5,7 @@ import MinusIcon from './icons/MinusIcon';
 import { useFieldSettings } from '../context/fieldSettingsContext';
 import { useToast } from '../context/toastContext';
 import { useRouter } from 'next/navigation';
+import { FieldSettings, Fields } from '@/types/fieldTypes';
 
 const Fields = [
     { label: 'Name', key: 'name' },
@@ -53,7 +54,11 @@ const SettingItem = ({ item }: { item: { label: string; key: string } }) => {
                                     label={fieldType.label}
                                     id={`${item}-${fieldType}`}
                                     name={fieldType.key}
-                                    value={fields[item.key][fieldType.key]}
+                                    value={
+                                        fields[item.key as keyof Fields]?.[
+                                            fieldType.key as keyof FieldSettings
+                                        ]
+                                    }
                                     inputClassName='h-7'
                                     onChange={handleInputChange}
                                 />

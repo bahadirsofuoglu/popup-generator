@@ -1,21 +1,9 @@
 import React, { createContext, useContext, useState, FC } from 'react';
+import { FieldSettings, Fields } from '@/types/fieldTypes';
 
 type Props = {
     children: React.ReactNode;
 };
-
-interface FieldSettings {
-    label: string;
-    errorMessage: string;
-    placeholder: string;
-}
-
-interface Fields {
-    name: FieldSettings;
-    email: FieldSettings;
-    phoneNumber: FieldSettings;
-    consent: FieldSettings;
-}
 
 interface FieldSettingsContextProps {
     fields: Fields;
@@ -75,6 +63,12 @@ export const FieldSettingsProvider = ({ children }: Props) => {
     );
 };
 
-export const useFieldSettings = () => {
-    return useContext(FieldSettingsContext) as any;
+export const useFieldSettings = (): FieldSettingsContextProps => {
+    const context = useContext(FieldSettingsContext);
+    if (!context) {
+        throw new Error(
+            'useFieldSettings must be used within a FieldSettingsProvider'
+        );
+    }
+    return context;
 };
