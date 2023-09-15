@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFieldSettings } from '../context/fieldSettingsContext';
 import InputField from './InputField';
 import CheckboxField from './CheckboxField';

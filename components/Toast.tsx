@@ -1,4 +1,3 @@
-import React from 'react';
 import { useToast } from '../context/toastContext';
 import CloseIcon from './icons/CloseIcon';
 const Toast: React.FC = () => {

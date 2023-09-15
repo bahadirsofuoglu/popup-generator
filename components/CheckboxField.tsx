@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface CheckboxFieldProps {
     label: string;
     id: string;
