@@ -19,7 +19,11 @@ export default async function handler(
 
     const settings = req.body.fields;
 
-    const jsCode = generateJSCodes(settings);
+    const baseUrl =
+        process.env.NODE_ENV === 'production'
+            ? 'https://your-production-domain.com'
+            : 'http://localhost:3000';
+    const jsCode = generateJSCodes(settings, baseUrl);
 
     const params = {
         Bucket: 'popupgenarator',
@@ -36,13 +40,12 @@ export default async function handler(
     }
 }
 
-function generateJSCodes(settings: any) {
+function generateJSCodes(settings: any, baseUrl: string) {
     const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
 
         const settings = ${JSON.stringify(settings)};
         const overlay = document.createElement('div');
-       
         overlay.style.position = 'fixed';
         overlay.style.top = '0';
         overlay.style.left = '0';
@@ -167,7 +170,7 @@ function generateJSCodes(settings: any) {
               consent: consentValue === 'on'
             });
 
-            fetch("/api/submitForm", {
+            fetch(\`${baseUrl}/api/submitForm\`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
