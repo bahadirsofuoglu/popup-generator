@@ -6,6 +6,18 @@ AWS.config.update({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: process.env.AWS_REGION,
 });
+interface FieldSetting {
+    label: string;
+    placeholder: string;
+    errorMessage: string;
+}
+
+interface Settings {
+    name: FieldSetting;
+    email: FieldSetting;
+    phoneNumber: FieldSetting;
+    consent: FieldSetting;
+}
 
 const s3 = new AWS.S3();
 
@@ -40,7 +52,7 @@ export default async function handler(
     }
 }
 
-function generateJSCodes(settings: any, baseUrl: string) {
+function generateJSCodes(settings: Settings, baseUrl: string) {
     const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
 

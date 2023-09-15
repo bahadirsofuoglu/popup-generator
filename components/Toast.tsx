@@ -9,6 +9,7 @@ const Toast: React.FC = () => {
 
     return (
         <div
+            id='pg-toast'
             className={`fixed right-4 top-4 z-50 ${backgroundColor} flex flex-col rounded p-4 shadow-lg`}
             style={{ maxWidth: '300px' }}
         >

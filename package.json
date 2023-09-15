@@ -33,6 +33,7 @@
         "@testing-library/jest-dom": "^6.1.2",
         "@testing-library/react": "14.0.0",
         "@testing-library/user-event": "14.4.3",
+        "@types/aws-sdk": "^2.7.0",
         "@types/jest": "^29.5.4",
         "@types/react": "18.2.21",
         "eslint-config-prettier": "^9.0.0",
