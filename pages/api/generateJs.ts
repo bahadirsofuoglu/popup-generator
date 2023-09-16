@@ -1,6 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import AWS from 'aws-sdk';
 import { FieldSettings } from '@/types/fieldTypes';
+
+// This is the API route for generating embeddable JS code.
+// It takes the form settings as input and generates the JS code that will be embedded in the website.
+// Uses AWS S3 to store the JS code and return the URL to the JS code.
+
 AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -41,7 +46,7 @@ export default async function handler(
 }
 
 function generateJSCodes(settings: FieldSettings, baseUrl: string) {
-        const jsCode = `
+    const jsCode = `
     document.addEventListener("DOMContentLoaded", function() {
 
         const settings = ${JSON.stringify(settings)};

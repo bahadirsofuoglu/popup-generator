@@ -1,5 +1,9 @@
 import { useToast } from '../context/toastContext';
 import CloseIcon from './icons/CloseIcon';
+
+// This is the toast component that will be used to display the toast message
+// The toast message is stored in the toastContext. Can usable in globally
+
 const Toast: React.FC = () => {
     const { message, isOpen, closeToast, type } = useToast();
 

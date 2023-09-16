@@ -1,5 +1,8 @@
 import React, { createContext, useState, useContext } from 'react';
 
+// This is the context that will be used to store the toast settings
+// The toast settings are the message, type and whether the toast is open or not
+
 type Props = {
     children: React.ReactNode;
 };

@@ -2,6 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import connectDB from '@/server/utils/connectDB';
 import { resolvers } from '@/server/graphql/resolvers';
 
+// This is the API route for submitting the form.
+// It takes the form data as input and saves it to the database(MongoDB). You can check server folder for the code.
+// It is called when the user submits the form.
+
 export default async function submitForm(
     req: NextApiRequest,
     res: NextApiResponse

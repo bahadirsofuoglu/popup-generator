@@ -2,6 +2,10 @@ import { useFieldSettings } from '../context/fieldSettingsContext';
 import InputField from './InputField';
 import CheckboxField from './CheckboxField';
 import CloseIcon from '@/components/icons/CloseIcon';
+
+// This is the popup component that will be used to preview the popup before generating the code
+// Only for the preview. For example close button is not working here
+
 const Popup = () => {
     const { fields } = useFieldSettings();
 

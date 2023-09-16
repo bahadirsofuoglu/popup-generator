@@ -7,6 +7,10 @@ import { useToast } from '../context/toastContext';
 import { useRouter } from 'next/navigation';
 import { FieldSettings, Fields } from '@/types/fieldTypes';
 
+// This is the side settings component that will be used to change the field settings
+// The field settings are the label, placeholder and error message
+// The field settings are stored in the fieldSettingsContext
+
 const Fields = [
     { label: 'Name', key: 'name' },
     { label: 'Email', key: 'email' },

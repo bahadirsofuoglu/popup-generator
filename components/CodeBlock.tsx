@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { useToast } from '@/context/toastContext';
 
+// This is the code block component that will be used to display the code that the user can copy
+
 const CodeBlock: React.FC = () => {
     const codeBlockRef = useRef<HTMLElement>(null);
     const { openToast } = useToast();

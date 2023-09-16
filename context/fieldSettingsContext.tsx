@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, FC } from 'react';
 import { FieldSettings, Fields } from '@/types/fieldTypes';
 
+// This is the context that will be used to store the field settings
+
 type Props = {
     children: React.ReactNode;
 };
